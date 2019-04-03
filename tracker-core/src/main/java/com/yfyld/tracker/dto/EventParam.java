@@ -1,4 +1,4 @@
-package com.yfyld.tracker.event.dto;
+package com.yfyld.tracker.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Getter;
@@ -9,6 +9,10 @@ import lombok.Setter;
 public class EventParam {
     @ApiModelProperty(value="id")
     private Long id;
+    @ApiModelProperty(value="uid")
+    private Long uid;
+    @ApiModelProperty(value="projectId")
+    private Long projectId;
     @ApiModelProperty(value="创建时间")
     private Long create_time;
     @ApiModelProperty(value="ua")
@@ -19,5 +23,9 @@ public class EventParam {
     private String type;
     @ApiModelProperty(value="code")
     private String code;
+    @ApiModelProperty(value="uuid")
+    private String uuid;
+    @ApiModelProperty(value="newUser")
+    private Boolean newUser=false;
 
 }

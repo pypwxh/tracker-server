@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yfyld.tracker.mapper.MetadataMapper" >
+
+
+
+    <insert id="addMetadata" parameterType="com.yfyld.tracker.model.Metadata">
+        INSERT INTO metadata (`project_id`,`code`,`name`,`desc`,`status`) VALUES (#{projectId},#{code},#{name},#{desc},#{status})
+    </insert>
+
+    <select id="getMetadataList" parameterType="com.yfyld.tracker.dto.GetMetadataListParam" resultType="com.yfyld.tracker.model.Metadata">
+        SELECT * FROM metadata m
+        <if test='tags != null'>
+            LEFT JOIN metadata_tag_relation mtr ON m.id= mtr.metadata_id
+            LEFT JOIN metadata_tag mt on m.id=mtr.tag_id
+        </if>
+        WHERE m.project_id = #{projectId,jdbcType=BIGINT}
+        <if test='name != null and name != ""'>
+            AND m.name LIKE "%"#{name,jdbcType=CHAR}"%"
+        </if>
+        <if test='code != null and code != ""'>
+            AND m.code LIKE "%"#{code,jdbcType=CHAR}"%"
+        </if>
+        <if test='status != null and status != ""'>
+            AND m.status=#{status,jdbcType=INTEGER}
+        </if>
+        <if test='tags != null '>
+            AND mtr.tag_id IN
+            <foreach collection="tags" item="id" open="(" close=")" separator=",">
+                #{id,jdbcType=BIGINT}
+            </foreach>
+        </if>
+
+    </select>
+
+    <select id="getMetadataInfo" parameterType="java.lang.Long" resultType="com.yfyld.tracker.model.Metadata">
+        SELECT
+          *
+        FROM
+          metadata
+        where id = #{id,jdbcType=BIGINT}
+    </select>
+
+</mapper>

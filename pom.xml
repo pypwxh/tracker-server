@@ -11,7 +11,6 @@
 
     <modules>
         <module>tracker-core</module>
-        <module>tracker-event</module>
         <module>tracker-util</module>
         <module>tracker-model</module>
     </modules>
@@ -23,11 +22,7 @@
                 <artifactId>tracker-core</artifactId>
                 <version>0.0.1-SNAPSHOT</version>
             </dependency>
-            <dependency>
-                <groupId>com.yfyld</groupId>
-                <artifactId>tracker-event</artifactId>
-                <version>0.0.1-SNAPSHOT</version>
-            </dependency>
+
             <dependency>
                 <groupId>com.yfyld</groupId>
                 <artifactId>tracker-util</artifactId>

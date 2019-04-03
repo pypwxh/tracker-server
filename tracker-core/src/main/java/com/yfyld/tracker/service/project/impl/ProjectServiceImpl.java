@@ -20,9 +20,9 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
-    public List<Project> getProjectList() {
+    public List<Project> getProjectList(String username,String role) {
         PageHelper.startPage(1, 20);
-        return projectMapper.getProjectList();
+        return projectMapper.getProjectList(username,role);
     }
 
     @Override

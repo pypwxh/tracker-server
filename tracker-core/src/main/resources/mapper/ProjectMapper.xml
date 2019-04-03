@@ -10,12 +10,21 @@
     <insert id="addProject" parameterType="com.yfyld.tracker.model.Project">
         INSERT INTO project(name) VALUES (#{name})
     </insert>
+    <insert id="addProjectMember">
+        INSERT INTO project_user_role_relation(project_id,user_id,role_id) VALUES (#{projectId},#{userId},#{roleId})
+    </insert>
 
     <select id="getProjectList" resultMap="projectMap">
-        SELECT
-          *
-        FROM
-          project
+        SELECT distinct p.*
+        FROM project p
+        LEFT JOIN project_user_role_relation pur ON p.id= pur.project_id
+        LEFT JOIN user u ON pur.user_id=u.id
+        LEFT JOIN role r ON pur.role_id=r.id
+        WHERE u.username=#{username,jdbcType=BIGINT}
+        <if test='role != null and role != ""'>
+            AND r.name=#{role,jdbcType=BIGINT}
+        </if>
+
     </select>
 
     <select id="getProjectInfo" parameterType="java.lang.Long" resultMap="projectMap">
