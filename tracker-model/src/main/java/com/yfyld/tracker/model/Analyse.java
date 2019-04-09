@@ -11,13 +11,14 @@ import java.util.Date;
 @ToString
 public class Analyse {
     private Long id;
+    private Long projectId;
     private String name;
     private Integer type;
-    private Long projectId;
     private String filter;
     private Integer timeType;
     private Date startDate;
     private Date endDate;
     private Integer chartType;
     private String dimension;
+    private String indicator;
 }

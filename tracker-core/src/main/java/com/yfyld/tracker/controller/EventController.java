@@ -27,7 +27,7 @@ public class EventController {
     private static final Logger LOGGER = LoggerFactory.getLogger("GET_EVENT");
 
     @Autowired
-    CustomerService customerService;
+    private CustomerService customerService;
 
     @ApiOperation(value = "获取日志")
     @GetMapping("/event.gif")

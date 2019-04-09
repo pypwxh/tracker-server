@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yfyld.tracker.mapper.BoardMapper" >
+
+    <resultMap id="BoardInfo" type="com.yfyld.tracker.dto.BoardInfo">
+        <id property="id" column="board_id" />
+        <result property="name" column="board_name" />
+        <result property="layout" column="board_layout" />
+        <collection property="analyses"  resultMap="BoardAnalyses" />
+    </resultMap>
+
+    <resultMap id="BoardAnalyses" type="com.yfyld.tracker.model.Analyse">
+        <id property="id" column="id" />
+        <result property="name" column="name" />
+        <result property="type" column="type" />
+        <result property="filter" column="filter" />
+    </resultMap>
+
+    <insert id="addBoard" parameterType="com.yfyld.tracker.model.Board">
+        INSERT INTO board (`name`,`layout`) VALUES (#{name},#{layout})
+    </insert>
+
+    <select id="getBoardList" resultType="com.yfyld.tracker.model.Board">
+        SELECT *
+        FROM board
+        WHERE project_id=#{projectId}
+    </select>
+
+
+
+    <select id="getBoardPaneList"  resultMap="BoardInfo">
+        SELECT a.*,b.id board_id,b.name board_name,b.layout board_layout,b.project_id board_project_id
+        FROM analyse a
+        LEFT JOIN board_analyse_relation bar ON bar.analyse_id = a.id
+        LEFT JOIN board b ON b.id = bar.board_id
+        WHERE b.id=#{BoardId}
+    </select>
+
+
+</mapper>
